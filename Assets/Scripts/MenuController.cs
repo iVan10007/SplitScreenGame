@@ -5,12 +5,9 @@ using static UnityEngine.Rendering.DebugUI;
 public class MenuController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _mainPanel;
+    private GameObject _mainPanel, _playerCountPanel, _settingsMenu;
 
-	[SerializeField]
-	private GameObject _playerCountPanel;
-
-	public int _playerCount;
+	public static int playerCount;
 
 	public void ClickPlayButton()
     {
@@ -20,8 +17,26 @@ public class MenuController : MonoBehaviour
 
 	public void ClickPlayerCountButton(int count)
 	{
-		_playerCount = count;
+		playerCount = count;
 		_playerCountPanel.SetActive(false);
 		SceneManager.LoadScene("Game");
+	}
+
+	public void ClickSettingsButton()
+	{
+		_settingsMenu.SetActive(true);
+		_mainPanel.SetActive(false);
+	}
+
+	public void ClickSettingsBackButton()
+	{
+		_mainPanel.SetActive(true);
+		_settingsMenu.SetActive(false);
+	}
+
+	public void ClickPlayersCountBackButton()
+	{
+		_mainPanel.SetActive(true);
+		_playerCountPanel.SetActive(false);
 	}
 }

@@ -8,4 +8,9 @@ public class Bullet : MonoBehaviour
 	{
 		DestroyObject(gameObject, bulletLife);
 	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		Destroy(gameObject);
+	}
 }
