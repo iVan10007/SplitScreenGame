@@ -11,6 +11,12 @@ public class ScoreController : MonoBehaviour
 	private TMP_Text _player3ScoreText;
 	[SerializeField]
 	private TMP_Text _player4ScoreText;
+	[SerializeField]
+	private int _winnerScore;
+	[SerializeField]
+	private GameObject _victoryUI;
+	[SerializeField]
+	private TMP_Text _winner;
 
 	public static int _player1Score = 0;
 	public static int _player2Score = 0;
@@ -49,5 +55,26 @@ public class ScoreController : MonoBehaviour
 		_player2ScoreText.text = "Игрок 2 - " + _player2Score;
 		_player3ScoreText.text = "Игрок 3 - " + _player3Score;
 		_player4ScoreText.text = "Игрок 4 - " + _player4Score;
+
+		if (_player1Score >= _winnerScore)
+		{
+			_victoryUI.SetActive(true);
+			_winner.text = "Победил игрок 1";
+		}
+		else if (_player2Score >= _winnerScore)
+		{
+			_victoryUI.SetActive(true);
+			_winner.text = "Победил игрок 2";
+		}
+		else if (_player3Score >= _winnerScore)
+		{
+			_victoryUI.SetActive(true);
+			_winner.text = "Победил игрок 3";
+		}
+		else if (_player4Score >= _winnerScore)
+		{
+			_victoryUI.SetActive(true);
+			_winner.text = "Победил игрок 4";
+		}
 	}
 }

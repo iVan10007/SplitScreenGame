@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Turret4Control : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class Turret4Control : MonoBehaviour
 	[SerializeField]
 	private GameObject _verticalRotation;
 	[SerializeField]
-	private Animator _animator;
+	private Slider _slider;
 	[SerializeField]
-	private AudioSource _audioSource;
+	private Animator _animator;
 	[SerializeField]
 	private int _ammo = 30;
 	[SerializeField]
@@ -39,6 +40,7 @@ public class Turret4Control : MonoBehaviour
 
 	void Update()
 	{
+		var rotationSpeed = _slider.value;
 
 		if (Input.GetKey(leftRotateButton))
 		{
@@ -105,7 +107,6 @@ public class Turret4Control : MonoBehaviour
 		currentBullet.tag = "p4";
 
 		_animator.SetTrigger("Play");
-		_audioSource.Play();
 
 		_ammo -= 1;
 

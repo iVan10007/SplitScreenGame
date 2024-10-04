@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,71 +5,56 @@ using UnityEngine;
 public class CubeSpawner : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject _cubePrefab; // Префаб куба
+	private GameObject[] _cubePrefabs; // Префаб куба
 	[SerializeField]
-	private float _spawnDelay = 1f; // Задержка между появлениями кубов
+	private Vector3 _areaCenter; // Центр области
 	[SerializeField]
-	private float _spawnPoint = 300;
+	public Vector3 _areaSize; // Размер области
 	[SerializeField]
-	private float spacing = 1.5f;
+	private float _spawnDelay = 2f; // Задержка между спавном кубов
+
+	private List<GameObject> cubes = new List<GameObject>();
 
 	void Start()
 	{
-		StartCoroutine(SpawnCubes());
+		StartCoroutine(SpawnCubesCoroutine());
 	}
 
-	IEnumerator SpawnCubes()
+	IEnumerator SpawnCubesCoroutine()
 	{
-		while (true)
+		while(true)
 		{
-			for (int i = 0; i < MenuController.playerCount; i++)
-			{
-				var flag = false;
-				while (!flag)
-				{
-					Vector3 randomPosition = generatePosition();
-
-					if (IsPositionFree(randomPosition))
-					{
-						spawnCubes(randomPosition);
-						flag = true;
-					}
-				}
-
-				yield return new WaitForSeconds(_spawnDelay);
-			}
+			CreateCube();
+			yield return new WaitForSeconds(_spawnDelay); // Задержка перед созданием следующего куба
 		}
 	}
 
-	bool IsPositionFree(Vector3 position)
+	void CreateCube()
 	{
-		Collider[] colliders = Physics.OverlapSphere(position, spacing / 2);
-		return colliders.Length == 0; // Позиция свободна, если нет коллайдеров в радиусе
+		Vector3 position;
+		do
+		{
+			position = new Vector3(
+				Random.Range(_areaCenter.x - _areaSize.x / 2, _areaCenter.x + _areaSize.x / 2),
+				Random.Range(_areaCenter.y - _areaSize.y / 2, _areaCenter.y + _areaSize.y / 2),
+				Random.Range(_areaCenter.z - _areaSize.z / 2, _areaCenter.z + _areaSize.z / 2)
+			);
+		} while (IsPositionOccupied(position));
+
+		var cubeType = Random.Range(0, _cubePrefabs.Length);
+
+		GameObject cube = Instantiate(_cubePrefabs[cubeType], position, Quaternion.identity);
 	}
 
-	void spawnCubes(Vector3 randomPosition)
+	bool IsPositionOccupied(Vector3 position)
 	{
-		Instantiate(_cubePrefab, randomPosition, Quaternion.identity);
-		randomPosition.x += 300;
-		Instantiate(_cubePrefab, randomPosition, Quaternion.identity);
-		randomPosition.x += 300;
-		Instantiate(_cubePrefab, randomPosition, Quaternion.identity);
-		randomPosition.x += 300;
-		Instantiate(_cubePrefab, randomPosition, Quaternion.identity);
-		randomPosition.x = 300;
-	}
-
-	Vector3 generatePosition()
-	{
-		float minX = _spawnPoint - 7;
-		float maxX = _spawnPoint + 7;
-
-		Vector3 randomPosition = new Vector3(
-			Random.Range(minX, maxX),
-			Random.Range(2, 7),
-			510);
-
-		return randomPosition;
+		foreach (GameObject cube in cubes)
+		{
+			if (Vector3.Distance(cube.transform.position, position) < _cubePrefabs[0].transform.localScale.x)
+			{
+				return true; // Позиция занята
+			}
+		}
+		return false; // Позиция свободна
 	}
 }
-

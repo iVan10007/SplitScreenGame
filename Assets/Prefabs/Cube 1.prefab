@@ -186,9 +186,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 3818895190922795346}
-  maxHealth: 1
+  maxHealth: 2
   health: 0
 --- !u!1 &1193961098160350801
 GameObject:
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1472617912539258374}
   - component: {fileID: 877892249656460622}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +275,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 761b25f163feac54b97658c12b0e3069, type: 2}
+  - {fileID: 2100000, guid: 53dc4ed7d73669840963d901a1804b07, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 868132144666190631}
-  _cubeScore: 1
+  _cubeScore: 2
   cubeLife: 4
 --- !u!1 &1242610061751026744
 GameObject:
